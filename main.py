@@ -1,3 +1,3 @@
-print("Hellow World!")
-
-print("Hellow GIt!")
+import datetime
+now = datetime.datetime.now()
+print(now)
