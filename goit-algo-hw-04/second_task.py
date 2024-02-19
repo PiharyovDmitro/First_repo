@@ -1,19 +1,20 @@
 def get_cats_info(path):
-    cats_info = []
     try:
         with open(path, 'r', encoding='utf-8') as file:
-            for line in file:
-                cat_data = line.strip().split(',')
-                cat_info = {
-                    "id": cat_data[0],
-                    "name": cat_data[1],
-                    "age": int(cat_data[2])
-                }
-                cats_info.append(cat_info)
+            cats_info = [{
+                "id": line.split(',')[0],
+                "name": line.split(',')[1],
+                "age": int(line.split(',')[2])
+            } for line in file.readlines()]
     except FileNotFoundError:
         print("Файл не знайдено")
-    except Exception as e:
+        return []
+    except (IndexError, ValueError) as e:
         print("Помилка при обробці файлу:", e)
+        return []
+    except Exception as e:
+        print("Невідома помилка:", e)
+        return []
     
     return cats_info
 
