@@ -2,15 +2,10 @@ import sys
 from pathlib import Path
 from colorama import init, Fore, Style
 
-# Ініціалізація colorama для підтримки кольорового виведення
 init(autoreset=True)
 
-def visualize_directory_structure(directory_path, indent=0):
-    """
-    Функція для візуалізації структури директорії з використанням кольорів.
-    :param directory_path: Шлях до директорії
-    :param indent: Відступ для форматування виводу
-    """
+def visualize_directory_structure(directory_path, indent=0, is_last=False):
+
     directory = Path(directory_path)
 
     # Перевірка чи існує заданий шлях і чи є це директорія
@@ -19,15 +14,25 @@ def visualize_directory_structure(directory_path, indent=0):
         return
 
     # Виведення імені поточної директорії
-    print(Fore.BLUE + '    ' * indent + f'{directory.name}/')
+    print(Fore.BLUE + '    ' * indent + ('└── ' if is_last else '├── ') + f'{directory.name}/')
 
-    # Обробка файлів у директорії
-    for item in directory.iterdir():
+    # Отримання списку файлів та директорій у поточній директорії
+    items = list(directory.iterdir())
+    # Позначаємо поточну директорію як останню, якщо це останній елемент списку
+    for index, item in enumerate(items[:-1]):
         if item.is_file():
-            print(Fore.GREEN + '    ' * (indent + 1) + f'{item.name}')
+            print(Fore.GREEN + '    ' * (indent + 1) + '├── ' + f'📄 {item.name} ({item.absolute()})')
         elif item.is_dir():
-            # Виведення імені директорії та рекурсивний виклик для її структури
+            print(Fore.CYAN + '    ' * (indent + 1) + '├── ' + f'📁 {item.name}/ ({item.absolute()})')
             visualize_directory_structure(item, indent + 1)
+    # Викликаємо рекурсію для останнього елементу списку, позначаючи його як останній
+    if items:
+        item = items[-1]
+        if item.is_file():
+            print(Fore.GREEN + '    ' * (indent + 1) + '└── ' + f'📄 {item.name} ({item.absolute()})')
+        elif item.is_dir():
+            print(Fore.CYAN + '    ' * (indent + 1) + '└── ' + f'📁 {item.name}/ ({item.absolute()})')
+            visualize_directory_structure(item, indent + 1, is_last=True)
 
 if __name__ == "__main__":
     # Перевірка наявності аргументу командного рядка
