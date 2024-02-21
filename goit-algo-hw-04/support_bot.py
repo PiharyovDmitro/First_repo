@@ -1,4 +1,5 @@
 contacts = {}
+
 #функція додавання контакту
 def add_contact(name, phone):
     contacts[name] = phone
@@ -32,7 +33,7 @@ def show_all_contacts():
 def parse_input(user_input):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
-    return cmd, *args
+    return cmd, args
 
 def main():
     print("Welcome to the assistant bot!")
@@ -40,17 +41,17 @@ def main():
 
     while True:
         user_input = input("Enter a command: ")
-        command, *args = parse_input(user_input)
+        command, args = parse_input(user_input)
 
         if command in ["close", "exit"]:
             print("Good bye!")
             break
         elif command == 'add':
-            print(add_contact(args, contacts))
+            print(add_contact(*args))
         elif command == 'change':
-            print(change_contact(args, contacts))
+            print(change_contact(*args))
         elif command == 'phone':
-            print(show_phone(args, contacts))
+            print(show_phone(*args))
         elif command == 'all':
             print(show_all_contacts())
         elif command == "hello":
