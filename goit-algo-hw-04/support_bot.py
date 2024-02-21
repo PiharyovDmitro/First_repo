@@ -1,3 +1,4 @@
+contacts = {}
 #функція додавання контакту
 def add_contact(name, phone):
     contacts[name] = phone
@@ -34,8 +35,6 @@ def parse_input(user_input):
     return cmd, *args
 
 def main():
-    contacts = {}
-
     print("Welcome to the assistant bot!")
     print("Available commands:\nhello - greet\nadd [name] [phone] - add a contact\nchange [name] [new phone] - update a contact\nphone [name] - show phone number\nall - show all contacts\nclose or exit - close the bot")
 
