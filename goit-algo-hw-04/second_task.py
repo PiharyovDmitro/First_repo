@@ -19,5 +19,5 @@ def get_cats_info(path):
     return cats_info
 
 # Приклад виклику функції:
-cats = get_cats_info("cats.txt")
+cats = get_cats_info("D:\Repositories\First_repo\goit-algo-hw-04\cats.txt")
 print(cats)
