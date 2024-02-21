@@ -4,6 +4,8 @@ def format_string(string, length):
     else:
         spaces_before = (length - len(string)) // 2
         spaces_after = length - len(string) - spaces_before
+        if spaces_before < spaces_after:
+            spaces_after -= 1
         formatted_string = " " * spaces_before + string + " " * spaces_after
         return formatted_string
     
