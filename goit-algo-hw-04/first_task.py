@@ -25,6 +25,6 @@ def total_salary(path):
         return 0, 0
 
 # Приклад використання:
-total, average = total_salary("зарплати.txt")
+total, average = total_salary("D:\Repositories\First_repo\goit-algo-hw-04\payment.txt")
 print(f"Загальна сума зарплат: {total}")
 print(f"Середня зарплата: {average}")
