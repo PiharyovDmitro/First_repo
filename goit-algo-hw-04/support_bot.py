@@ -1,10 +1,6 @@
 #словарь для зберігання контактів
 contacts = {}
 
-#функція привітання
-def hello():
-    return 'How can I help you?'
-
 #функція додавання контакту
 def add_contact(name, phone):
     contacts[name] = phone
