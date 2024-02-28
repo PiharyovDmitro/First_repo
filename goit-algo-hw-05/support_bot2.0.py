@@ -1,12 +1,30 @@
 contacts = {}
 
+# Декоратор для обробки помилок введення
+def input_error(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ValueError:
+            return "Give me name and phone please."
+        except IndexError:
+            return "Enter user name."
+        except KeyError:
+            return "Contact not found."
+
+    return wrapper
+
 #функція додавання контакту
-def add_contact(name, phone):
+@input_error
+def add_contact(args, contacts):
+    name, phone = args
     contacts[name] = phone
-    return 'Contact added.'
+    return "Contact added."
 
 #функция зміни номеру
-def change_contact(name, new_phone):
+@input_error
+def change_contact(args, contacts):
+    name, new_phone = args
     if name in contacts:
         contacts[name] = new_phone
         return 'Contact updated.'
@@ -14,14 +32,17 @@ def change_contact(name, new_phone):
         return f'Contact with {name} not found.'
 
 #функція виводу номера телефона за ім'ям
-def show_phone(name):
+@input_error
+def show_phone(args, contacts):
+    name = args[0]
     if name in contacts:
         return contacts[name]
     else:
         return f'Contact with {name} not found.'
 
 #функція виведення усіх контактів
-def show_all_contacts():
+@input_error
+def show_all_contacts(contacts):
     if contacts:
         all_contacts = 'All contacts:\n'
         for name, phone in contacts.items():
@@ -47,13 +68,25 @@ def main():
             print("Good bye!")
             break
         elif command == 'add':
-            print(add_contact(*args))
+            if len(args) != 2:
+                print("Give me name and phone please")
+                continue
+            print(add_contact(args, contacts))
         elif command == 'change':
-            print(change_contact(*args))
+            if len(args) != 2:
+                print("Give me name and new phone please")
+                continue
+            print(change_contact(args, contacts))
         elif command == 'phone':
-            print(show_phone(*args))
+            if len(args) != 1:
+                print("Enter user name")
+                continue
+            print(show_phone(args, contacts))
         elif command == 'all':
-            print(show_all_contacts())
+            if len(args) != 0:
+                print("Invalid arguments. Usage: all")
+                continue
+            print(show_all_contacts(contacts))
         elif command == "hello":
             print("How can I help you?")
         else:
