@@ -1,14 +1,10 @@
-def logger(func):
-    def inner(x: int, y: int) -> int:
-        print(f"Викликається функція: {func.__name__}: {x}, {y}")
-        result = func(x, y)
-        print(f"Функція {func.__name__} завершила виконання: {result}")
-        return result
+def add(a):
+    def add_b(b):
+        return a + b
+    return add_b
 
-    return inner
+# Використання:
+add_5 = add(5)
+result = add_5(10)
+print(result)
 
-@logger
-def complicated(x: int, y: int) -> int:
-    return x + y
-
-print(complicated(2, 3))

@@ -58,7 +58,13 @@ def parse_input(user_input):
 
 def main():
     print("Welcome to the assistant bot!")
-    print("Available commands:\nhello - greet\nadd [name] [phone] - add a contact\nchange [name] [new phone] - update a contact\nphone [name] - show phone number\nall - show all contacts\nclose or exit - close the bot")
+    print('''Available commands:
+          hello - greet
+          add [name] [phone] - add a contact
+          change [name] [new phone] - update a contact
+          phone [name] - show phone number
+          all - show all contacts
+          close or exit - close the bot''')
 
     while True:
         user_input = input("Enter a command: ")
