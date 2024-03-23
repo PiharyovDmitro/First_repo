@@ -40,16 +40,16 @@ class Record:
 
 class AddressBook:
     def __init__(self):
-        self.records = []
+        self.data = []
 
     def add_record(self, record):
-        self.records.append(record)
+        self.data.append(record)
 
-    def search_by_name(self, name):
-        return [record for record in self.records if record.name.value == name]
+    def find(self, name):
+        return [record for record in self.data if record.name.value == name]
 
-    def delete_record(self, name):
-        self.records = [record for record in self.records if record.name.value != name]
+    def delete(self, name):
+        self.data = [record for record in self.data if record.name.value != name]
 
 
 # Приклад використання
@@ -67,10 +67,10 @@ if __name__ == "__main__":
     address_book.add_record(record2)
 
     # Пошук записів за іменем
-    search_result = address_book.search_by_name("John Doe")
+    search_result = address_book.find("John Doe")
     for record in search_result:
         print("Name:", record.name.value)
         print("Phones:", [phone.value for phone in record.phones])
 
     # Видалення записів за іменем
-    address_book.delete_record("Jane Smith")
+    address_book.delete("Jane Smith")
