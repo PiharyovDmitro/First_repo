@@ -32,6 +32,12 @@ class Record:
     def edit_phone(self, old_phone, new_phone):
         if old_phone not in [p.value for p in self.phones]:
             raise ValueError("Phone number {} not found in the record.".format(old_phone))
+        else:
+            for p in self.phones:
+                if p.value == old_phone:
+                    p.value = new_phone
+                    p.validate()
+                    break
 
     def find_phone(self, phone):
         for p in self.phones:
